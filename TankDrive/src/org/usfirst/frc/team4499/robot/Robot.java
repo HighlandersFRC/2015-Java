@@ -1,11 +1,12 @@
 package org.usfirst.frc.team4499.robot;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.Joystick;
 
 
 public class Robot extends IterativeRobot {
@@ -13,6 +14,19 @@ public class Robot extends IterativeRobot {
 	CANTalon motorLeftTwo = new CANTalon(2);
 	CANTalon motorRightOne = new CANTalon(3);
 	CANTalon motorRightTwo = new CANTalon(4);
+	double startTime;
+	double currentTime;
+	double lastTime = 0;
+	double currentAccel = 0;
+	double currentVelocity = 0;
+	double currentPosition = 0;
+	double acceleration = 0;
+	double lastVelocity;
+	double lastPos;
+	double screeningValue = 0.95;
+	double lastAccel;
+	BuiltInAccelerometer accel;
+	double Acc1;
 	RobotDrive myRobot;
 	Joystick stickLeft;
 	Joystick stickRight;
@@ -22,7 +36,16 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {   	
+    public void robotInit() { 
+    	acceleration = 0;
+    	accel = new BuiltInAccelerometer();
+    	lastTime = 0;
+    	currentAccel = 0;
+    	currentVelocity = 0;
+    	currentPosition = 0;
+    	lastVelocity = 0;
+    	lastPos = 0;
+    	lastAccel = 0;
     	myRobot = new RobotDrive(0,1);
     	stickLeft = new Joystick(0);
     	stickRight = new Joystick(0);
@@ -59,13 +82,13 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
 
-        //myRobot.arcadeDrive(stick);
+    	
     	motorLeftOne.set(stickLeft.getRawAxis(1));
     	motorLeftTwo.set(stickLeft.getRawAxis(1));
     	
     	motorRightOne.set(-stickRight.getRawAxis(5));
     	motorRightTwo.set(-stickRight.getRawAxis(5));
-        
+    	
     }
     
     /**

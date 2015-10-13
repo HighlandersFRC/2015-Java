@@ -128,6 +128,8 @@ public class Robot extends SampleRobot {
             		if (positive ==-1 && currentVelocity > 0){
             			currentVelocity = 0;
             		}
+            		//new
+            		Timer.delay (0.02);	
             		canChange = false;
             }
             else{

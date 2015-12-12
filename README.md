@@ -14,6 +14,4 @@ Currently for Accretion
 Currently for Accretion
 
 
--Tank Drive is basic Drive Program<br>
--Data Moniter is for geting data from the NavX
 >>>>>>> 8e13128e333074387d39581b7253a8e47c9bfe04

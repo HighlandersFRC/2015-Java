@@ -17,7 +17,7 @@ public class PID {
 	private double minOutput = -1;
 
 	private boolean continuous = false; // only for absolute encoders
-	private double setpoint; // this will be set continuously
+	private double setPoint; // this will be set continuously
 	private double output;
 	private double result;
 	
@@ -28,7 +28,7 @@ public class PID {
 	}
 	
 	public double updatePID(double value){
-		error = setpoint - value;
+		error = setPoint - value;
 		if (continuous) {
             if (Math.abs(error) > (maxInput - minInput) / 2) {
                 if (error > 0) {
@@ -67,5 +67,13 @@ public class PID {
 	public double getResult(){
 		return result;
 	}
+	public void setSetPoint(double target){
+		setPoint = target;
+		
+	}
+	public double getSetPoint(){
+	return setPoint;	
+	}
+	
 	
 }

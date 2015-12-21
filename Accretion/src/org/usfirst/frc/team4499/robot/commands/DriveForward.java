@@ -4,44 +4,66 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4499.robot.Robot;
 import org.usfirst.frc.team4499.robot.RobotMap;
+import org.usfirst.frc.team4499.robot.RobotStats;
 import org.usfirst.frc.team4499.robot.PID;
 
 public class DriveForward extends Command{
+	// PID Values for this motor
 	private double kI = 0;
-	private double kP = 0.06;
+	private double kP = 0.9;
 	private double kD = 0;
 	
+	private double ticksPerRotation = 7500;
+	private double leftStarting; //starting position of left encoder in ticks
+	private double rightStarting;// starting position of right encoder in ticks
+	double rotations; // distance to travel
+	double runTime; // Maximum time that the system can run
+	double startTime; // Time that the robot started this command
+	PID rightWheel = new PID(kP,kI,kD); // PID's for both motors
+	PID leftWheel = new PID(kP,kI,kD); 
 	
-	private double leftStarting;
-	private double rightStarting;
-	PID rightWheel = new PID(kP,kI,kD);
-	PID leftWheel = new PID(kP,kI,kD);
-	double distance;
-	double runTime;
-	double startTime;
+	
     
-	public DriveForward(double distance) {
+	public DriveForward(double inches) {
         //TODO once PID is working change this to distance
-    	this.distance = distance;
+    	this.rotations = inches / (RobotStats.driveDiameter * Math.PI);
+    	this.runTime = 20; //default to 20 seconds, longer than autonomous
+    	leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
+    	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
     }
+	public DriveForward(double feet, double inches){
+		this.rotations = (feet * 12 + inches) / (RobotStats.driveDiameter * Math.PI);
+		this.runTime = 20;//default to 20 seconds, longer than autonomous
+		leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
+    	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
+		
+	}
+	public DriveForward(double feet, double inches, double timeout){
+		this.rotations = (feet * 12 + inches) / (RobotStats.driveDiameter * Math.PI);
+		this.runTime = timeout;
+		leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
+    	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
+		
+	}
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	leftStarting = RobotMap.motorLeftOne.getEncPosition()/7500;
-    	rightStarting = RobotMap.motorRightTwo.getEncPosition()/7500;
+    	startTime = Timer.getFPGATimestamp();
+    	leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
+    	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	leftWheel.setSetPoint(distance + leftStarting);
-    	rightWheel.setSetPoint(-distance + rightStarting);
+    	leftWheel.setSetPoint(rotations + leftStarting);
+    	rightWheel.setSetPoint(-rotations + rightStarting);
     	//rightWheel.setSetPoint(distance);
-    	leftWheel.updatePID(RobotMap.motorLeftOne.getEncPosition()/7500);
-    	rightWheel.updatePID(RobotMap.motorRightTwo.getEncPosition()/7500);
+    	leftWheel.updatePID(RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation);
+    	rightWheel.updatePID(RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation);
     	//rightWheel.updatePID(RobotMap.motorRightTwo.getEncPosition());
     	
-    	System.out.println("Wheel Position" + (rightWheel.getSetPoint() - RobotMap.motorRightTwo.getEncPosition()/7500));
+    	System.out.println("Wheel Position" + (rightWheel.getSetPoint() - RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation));
     	
     	RobotMap.motorLeftOne.set(-leftWheel.getResult());
     	RobotMap.motorLeftTwo.set(-leftWheel.getResult());
@@ -54,7 +76,7 @@ public class DriveForward extends Command{
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
-        return false;
+        return Timer.getFPGATimestamp() >= runTime + startTime;
     }
 
     // Called once after isFinished returns true

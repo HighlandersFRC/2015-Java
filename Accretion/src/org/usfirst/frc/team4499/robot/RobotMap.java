@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4499.robot;
 
+import org.usfirst.frc.team4499.robot.tools.DCMotor;
+
 import edu.wpi.first.wpilibj.CANTalon;
 
 /**
@@ -9,10 +11,10 @@ import edu.wpi.first.wpilibj.CANTalon;
  * floating around.
  */
 public class RobotMap {
-	public static CANTalon motorLeftOne = new CANTalon(1);
-	public static CANTalon motorLeftTwo = new CANTalon(2);
-	public static CANTalon motorRightOne = new CANTalon(3);
-	public static CANTalon motorRightTwo = new CANTalon(4);
+	public static DCMotor motorLeftOne = new DCMotor(1);
+	public static DCMotor motorLeftTwo = new DCMotor(2);
+	public static DCMotor motorRightOne = new DCMotor(3);
+	public static DCMotor motorRightTwo = new DCMotor(4);
 	
 	
 	

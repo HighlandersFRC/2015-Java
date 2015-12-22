@@ -1,16 +1,20 @@
 package org.usfirst.frc.team4499.robot.commands;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4499.robot.Robot;
 import org.usfirst.frc.team4499.robot.RobotMap;
 import org.usfirst.frc.team4499.robot.RobotStats;
-import org.usfirst.frc.team4499.robot.PID;
+import org.usfirst.frc.team4499.robot.tools.PID;
 
 public class DriveForward extends Command{
 	// PID Values for this motor
+	Preferences prefs;
+	
 	private double kI = 0;
-	private double kP = 0.9;
+	private double kP = .5;
 	private double kD = 0;
 	
 	private double ticksPerRotation = 7500;
@@ -30,6 +34,10 @@ public class DriveForward extends Command{
     	this.runTime = 20; //default to 20 seconds, longer than autonomous
     	leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
     	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
+    	prefs = Preferences.getInstance();
+		kP = prefs.getDouble("P", .5);
+		kI = prefs.getDouble("I", 0);
+		kD = prefs.getDouble("D", 0);
     }
 	public DriveForward(double feet, double inches){
 		this.rotations = (feet * 12 + inches) / (RobotStats.driveDiameter * Math.PI);
@@ -51,6 +59,9 @@ public class DriveForward extends Command{
     	startTime = Timer.getFPGATimestamp();
     	leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
     	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
+    	CameraServer server = CameraServer.getInstance();
+    	server.setQuality(50);
+    	server.startAutomaticCapture("cam0");
     	
     }
 

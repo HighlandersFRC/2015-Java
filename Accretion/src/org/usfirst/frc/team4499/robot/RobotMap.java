@@ -2,7 +2,10 @@ package org.usfirst.frc.team4499.robot;
 
 import org.usfirst.frc.team4499.robot.tools.DCMotor;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.SerialPort;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -11,6 +14,7 @@ import edu.wpi.first.wpilibj.CANTalon;
  * floating around.
  */
 public class RobotMap {
+    public static AHRS navx = new AHRS(SerialPort.Port.kMXP);;
 	public static DCMotor motorLeftOne = new DCMotor(1);
 	public static DCMotor motorLeftTwo = new DCMotor(2);
 	public static DCMotor motorRightOne = new DCMotor(3);

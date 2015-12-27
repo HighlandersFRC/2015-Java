@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Users/John/navx-mxp/java/lib/navx_frc.jar"/>
+	<classpathentry exported="true" kind="var" path="wpilib" sourcepath="wpilib.sources"/>
+	<classpathentry exported="true" kind="var" path="networktables" sourcepath="networktables.sources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/schlag/navx-mxp/java/lib/navx_frc.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/schlag/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/schlag/wpilib/java/current/lib/NetworkTables.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/schlag/wpilib/java/current/lib/WPILib-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/schlag/wpilib/java/current/lib/NetworkTables-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

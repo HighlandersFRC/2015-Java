@@ -15,7 +15,6 @@ import org.usfirst.frc.team4499.robot.tools.Arduino;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends IterativeRobot {
-	
 	RobotDrive myRobot;
 	DoubleSolenoid pistonOne;
 	double safety = 0.5;
@@ -69,6 +68,13 @@ public class Robot extends IterativeRobot {
     		//DriveForward forward = new DriveForward(15);
         	//forward.start();
     	}
+    	//DriveForward forward = new DriveForward(5,0);
+    	//forward.start();
+    	Turn turn = new Turn(90);
+    	turn.start();
+    	
+    	
+
     }
 
     /**

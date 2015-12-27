@@ -13,12 +13,19 @@ import edu.wpi.first.wpilibj.*;
  * floating around.
  */
 public class RobotMap {
+	// On Board NavX
     public static AHRS navx = new AHRS(SerialPort.Port.kMXP);
+    
+    //Solenoid for shifters
+    public static DoubleSolenoid shifters = new DoubleSolenoid(0,1);
+    
+    //Drive Motors
 	public static DCMotor motorLeftOne = new DCMotor(1);
 	public static DCMotor motorLeftTwo = new DCMotor(2);
 	public static DCMotor motorRightOne = new DCMotor(3);
 	public static DCMotor motorRightTwo = new DCMotor(4);
 	
+	//Servo Motors for Camera Gimbal
 	public static Servo cameraYaw = new Servo(2); // for some reason pins 0, 1 won't work they crash the code
 	public static Servo cameraPitch = new Servo(3);
 	

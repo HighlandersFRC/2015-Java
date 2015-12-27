@@ -1,44 +1,42 @@
 
 package org.usfirst.frc.team4499.robot;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.*;
 
 import org.usfirst.frc.team4499.robot.commands.*;
 import org.usfirst.frc.team4499.robot.subsystems.*;
+import org.usfirst.frc.team4499.robot.tools.Arduino;
+
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends IterativeRobot {
-	AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
+	
 	RobotDrive myRobot;
 	DoubleSolenoid pistonOne;
 	double safety = 0.5;
 	int print = 0; 
 	Value pistonValue = DoubleSolenoid.Value.kOff;
 	CameraServer server;
+	double cameraYawValue = .5;
+	double cameraPitchValue = .5;
+
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	
     public void robotInit() {   	
     	myRobot = new RobotDrive(0,1);
     	pistonOne = new DoubleSolenoid(0,1);
     	safety = 0.5;
     	server = CameraServer.getInstance();
         server.setQuality(50);
-         //the camera name (ex "cam0") can be found through the roborio web interface
         server.startAutomaticCapture("cam0");
     }
     
@@ -47,10 +45,30 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousInit(){
     	System.out.println("Started Autonomous");
-    	DriveForward forward = new DriveForward(5,0);
-    	forward.start();
-    	
-    	
+    	Arduino.write(2);
+    	if(OI.dialOne.get()){
+    		System.out.println("Started Autonomous One");
+    	}
+    	else if(OI.dialTwo.get()){
+    		System.out.println("Started Autonomous Two");
+    		//DriveForward forward = new DriveForward(15);
+        	//forward.start();
+    	}
+    	else if(OI.dialThree.get()){
+    		System.out.println("Started Autonomous Two");
+    		//DriveForward forward = new DriveForward(15);
+        	//forward.start();
+    	}
+    	else if(OI.dialFour.get()){
+    		System.out.println("Started Autonomous Two");
+    		//DriveForward forward = new DriveForward(15);
+        	//forward.start();
+    	}
+    	else if(OI.dialFive.get()){
+    		System.out.println("Started Autonomous Two");
+    		//DriveForward forward = new DriveForward(15);
+        	//forward.start();
+    	}
     }
 
     /**
@@ -65,6 +83,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopInit(){
     	System.out.println("Teleop Started");
+    	Arduino.write(1);
     }
 
     /**
@@ -72,6 +91,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
 	    while (isOperatorControl() && isEnabled()) {
+	    	Arduino.write(1);
 	    	//autonomousInit();
 	    	if(OI.safetyOn.get()){
 	    		safety = 0.5;
@@ -86,7 +106,7 @@ public class Robot extends IterativeRobot {
 	    		pistonValue = DoubleSolenoid.Value.kReverse;
 	    	}
 	    	if(print > 100){
-	    	SmartDashboard.putNumber("Orientation",ahrs.getAngle());
+	    	//SmartDashboard.putNumber("Orientation",ahrs.getAngle());
 	    //	System.out.println("IMU_TotalYaw    " +ahrs.getAngle());
 	    	//System.out.print(RobotMap.motorRightOne.getEncPosition() + "  ");
 	    	//System.out.print(RobotMap.motorRightTwo.getEncPosition() + "  ");
@@ -102,8 +122,44 @@ public class Robot extends IterativeRobot {
 	    	
 	    	RobotMap.motorRightOne.set(-OI.controllerOne.getRawAxis(3)* safety);
 	    	RobotMap.motorRightTwo.set(-OI.controllerOne.getRawAxis(3)* safety);
+	    	
+	    	
+	    	int pov = OI.controllerOne.getPOV();
+	    	System.out.println("Pov: " + pov);
+	    	if(pov == 0){
+	    		if(cameraPitchValue < 1){
+	    			cameraPitchValue = cameraPitchValue + .01;
+	    		}
 	    	}
-	    Timer.delay(0.005);
+	    	else if(pov == 90){
+	    		if(cameraYawValue < 180 ){
+	    			cameraYawValue = cameraYawValue + .01;
+	    		}
+	    	}
+	    	else if(pov == 180){
+	    		if(cameraPitchValue > 0 ){
+	    			cameraPitchValue = cameraPitchValue - .01;
+	    		}
+	    	}
+	    	else if(pov == 270){
+	    		if(cameraYawValue > 0 ){
+	    			cameraYawValue = cameraYawValue - .01;
+	    		}
+	    	}
+	    	else{
+	    	}
+	    	RobotMap.cameraPitch.set(cameraPitchValue);
+	    	RobotMap.cameraYaw.set(cameraYawValue);
+	    	
+	    	
+	    	 Timer.delay(0.005);
+	    	}
+	   
+    }
+    public void disabledInit(){
+    	System.out.println("Disabled Started");
+    	Arduino.write(0);
+    	
     }
        // System.out.println("Test");
     

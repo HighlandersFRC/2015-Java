@@ -11,12 +11,25 @@ import org.usfirst.frc.team4499.robot.commands.ExampleCommand;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static Joystick controllerOne = new Joystick(0);;
+	// mapping of buttons for first Controller
+	public static Joystick controllerOne = new Joystick(0);
 	public static JoystickButton safetyOff = new JoystickButton(controllerOne,7);
 	public static JoystickButton safetyOn = new JoystickButton(controllerOne,2);
 	public static JoystickButton safetyOffTwo = new JoystickButton(controllerOne,8);
 	public static JoystickButton shiftUp = new JoystickButton(controllerOne, 6);
-	public static JoystickButton shiftDown = new JoystickButton(controllerOne,5);;
+	public static JoystickButton shiftDown = new JoystickButton(controllerOne,5);
+	
+	
+	// mapping of buttons for autonomous chooser
+	public static Joystick dial = new Joystick(1);
+	public static JoystickButton dialOne = new JoystickButton(dial,1);
+	public static JoystickButton dialTwo = new JoystickButton(dial,2);
+	public static JoystickButton dialThree = new JoystickButton(dial,3);
+	public static JoystickButton dialFour = new JoystickButton(dial,4);
+	public static JoystickButton dialFive = new JoystickButton(dial,5);
+	
+	
+	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button

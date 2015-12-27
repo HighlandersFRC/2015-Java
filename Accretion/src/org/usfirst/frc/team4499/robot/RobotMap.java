@@ -4,8 +4,7 @@ import org.usfirst.frc.team4499.robot.tools.DCMotor;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -14,11 +13,17 @@ import edu.wpi.first.wpilibj.SerialPort;
  * floating around.
  */
 public class RobotMap {
-    public static AHRS navx = new AHRS(SerialPort.Port.kMXP);;
+    public static AHRS navx = new AHRS(SerialPort.Port.kMXP);
 	public static DCMotor motorLeftOne = new DCMotor(1);
 	public static DCMotor motorLeftTwo = new DCMotor(2);
 	public static DCMotor motorRightOne = new DCMotor(3);
 	public static DCMotor motorRightTwo = new DCMotor(4);
+	
+	public static Servo cameraYaw = new Servo(2); // for some reason pins 0, 1 won't work they crash the code
+	public static Servo cameraPitch = new Servo(3);
+	
+
+	
 	
 	
 	

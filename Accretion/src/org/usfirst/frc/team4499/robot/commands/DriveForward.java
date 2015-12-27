@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4499.robot.Robot;
+//import org.usfirst.frc.team4499.robot.Robot;
 import org.usfirst.frc.team4499.robot.RobotMap;
 import org.usfirst.frc.team4499.robot.RobotStats;
 import org.usfirst.frc.team4499.robot.tools.PID;
@@ -59,9 +59,6 @@ public class DriveForward extends Command{
     	startTime = Timer.getFPGATimestamp();
     	leftStarting = RobotMap.motorLeftOne.getEncPosition()/ticksPerRotation;
     	rightStarting = RobotMap.motorRightTwo.getEncPosition()/ticksPerRotation;
-    	CameraServer server = CameraServer.getInstance();
-    	server.setQuality(50);
-    	server.startAutomaticCapture("cam0");
     	
     }
 

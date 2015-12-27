@@ -20,7 +20,6 @@ import org.usfirst.frc.team4499.robot.subsystems.*;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Robot extends IterativeRobot {
-	AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
 	RobotDrive myRobot;
 	DoubleSolenoid pistonOne;
 	double safety = 0.5;
@@ -47,8 +46,10 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousInit(){
     	System.out.println("Started Autonomous");
-    	DriveForward forward = new DriveForward(5,0);
-    	forward.start();
+    	//DriveForward forward = new DriveForward(5,0);
+    	//forward.start();
+    	Turn turn = new Turn(90);
+    	turn.start();
     	
     	
     }
@@ -86,7 +87,7 @@ public class Robot extends IterativeRobot {
 	    		pistonValue = DoubleSolenoid.Value.kReverse;
 	    	}
 	    	if(print > 100){
-	    	SmartDashboard.putNumber("Orientation",ahrs.getAngle());
+	    	//SmartDashboard.putNumber("Orientation",ahrs.getAngle());
 	    //	System.out.println("IMU_TotalYaw    " +ahrs.getAngle());
 	    	//System.out.print(RobotMap.motorRightOne.getEncPosition() + "  ");
 	    	//System.out.print(RobotMap.motorRightTwo.getEncPosition() + "  ");

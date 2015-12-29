@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team4499.robot.commands.*;
 import org.usfirst.frc.team4499.robot.tools.Arduino;
 
-import Sequences.TestSequence;
-
 public class Robot extends IterativeRobot {
 	TankDrive drive;
 	Gimbal cameraMount; 

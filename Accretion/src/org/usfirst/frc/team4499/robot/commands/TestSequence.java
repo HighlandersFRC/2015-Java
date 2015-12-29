@@ -1,4 +1,4 @@
-package Sequences;
+package org.usfirst.frc.team4499.robot.commands;
 
 import org.usfirst.frc.team4499.robot.commands.*;
 

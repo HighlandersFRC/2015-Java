@@ -1,21 +1,17 @@
 
 package org.usfirst.frc.team4499.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 
 import org.usfirst.frc.team4499.robot.commands.*;
-import org.usfirst.frc.team4499.robot.subsystems.*;
 import org.usfirst.frc.team4499.robot.tools.Arduino;
 
-import com.kauailabs.navx.frc.AHRS;
+import Sequences.TestSequence;
 
 public class Robot extends IterativeRobot {
-	RobotDrive myRobot;
 	TankDrive drive;
 	Gimbal cameraMount; 
 	Camera camera;
@@ -28,12 +24,12 @@ public class Robot extends IterativeRobot {
      */
 	
     public void robotInit() {   	
-    	myRobot = new RobotDrive(0,1);
         drive = new TankDrive(
         		RobotMap.motorLeftTwo,
 				RobotMap.motorLeftOne, 
 				RobotMap.motorRightTwo, 
-				RobotMap.motorRightOne);
+				RobotMap.motorRightOne,
+				RobotMap.shifters);
         cameraMount = new Gimbal();
         camera = new Camera(50, "cam0");
     }
@@ -49,14 +45,19 @@ public class Robot extends IterativeRobot {
     	}
     	else if(OI.dialTwo.get()){
     		System.out.println("Started Autonomous Two");
-    		//DriveForward forward = new DriveForward(15);
-        	//forward.start();
+    		DriveForward forward = new DriveForward(20);
+        	forward.start();
+        	System.out.println("Autonomous Completed");
     	}
     	else if(OI.dialThree.get()){
     		System.out.println("Started Autonomous Three");
+    		Turn turnaround = new Turn(90);
+    		turnaround.start();
     	}
     	else if(OI.dialFour.get()){
     		System.out.println("Started Autonomous Four");
+    		TestSequence sequence = new TestSequence();
+    		sequence.start();
     	}
     	else if(OI.dialFive.get()){
     		System.out.println("Started Autonomous Five");
@@ -72,6 +73,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
+    	SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
     }
     
     /**
@@ -92,9 +94,9 @@ public class Robot extends IterativeRobot {
 	    while (isOperatorControl() && isEnabled()) {
 	    	Scheduler.getInstance().run();
 	    	Arduino.write(1);
-	    	
+	    	SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
 	    	if(print > 100){
-	    		SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
+	    		
 	    		print = 0;
 	    	}
 	    	print++; 

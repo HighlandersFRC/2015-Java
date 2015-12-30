@@ -48,13 +48,7 @@ public class PID {
 
         result = (PValue * error + IValue * totalError + DValue * (error - prevError));
         prevError = error;
-
-        if (result > maxOutput) {
-            result = maxOutput;
-        } 
-        else if (result < minOutput) {
-            result = minOutput;
-        }
+        result = clamp(result);
         return result;
 	}
 	
@@ -67,6 +61,12 @@ public class PID {
 	public double getResult(){
 		return result;
 	}
+	public void setMaxOutput(double output){
+		maxOutput = output;
+	}
+	public void setMinOutput(double output){
+		minOutput = output;
+	}
 	public void setSetPoint(double target){
 		setPoint = target;
 		
@@ -74,6 +74,14 @@ public class PID {
 	public double getSetPoint(){
 	return setPoint;	
 	}
-	
+	public double clamp(double input){
+		if(input > maxOutput){
+			return maxOutput;
+		}
+		if(input < minOutput){
+			return minOutput;
+		}
+		return input;
+	}
 	
 }

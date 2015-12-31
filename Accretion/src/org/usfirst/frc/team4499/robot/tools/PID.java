@@ -71,6 +71,9 @@ public class PID {
 		setPoint = target;
 		
 	}
+	public void setContinuous(boolean value){
+		continuous = value;
+	}
 	public double getSetPoint(){
 	return setPoint;	
 	}

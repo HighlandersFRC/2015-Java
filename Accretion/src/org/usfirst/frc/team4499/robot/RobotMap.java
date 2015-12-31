@@ -18,6 +18,7 @@ public class RobotMap {
     
     //Solenoid for shifters
     public static DoubleSolenoid shifters = new DoubleSolenoid(0,1);
+    public static DoubleSolenoid piston = new DoubleSolenoid(2,3);
     
     //Drive Motors
 	public static DCMotor motorLeftOne = new DCMotor(1);

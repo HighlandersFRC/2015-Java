@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import org.usfirst.frc.team4499.robot.*;
 
 import org.usfirst.frc.team4499.robot.commands.*;
 import org.usfirst.frc.team4499.robot.tools.Arduino;
@@ -13,7 +15,7 @@ public class Robot extends IterativeRobot {
 	TankDrive drive;
 	Gimbal cameraMount; 
 	Camera camera;
-	
+	Value pistonValue;
 	int print = 0; 
 	
     /**
@@ -30,6 +32,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.shifters);
         cameraMount = new Gimbal();
         camera = new Camera(50, "cam0");
+        pistonValue = DoubleSolenoid.Value.kOff;
     }
     
     /**
@@ -49,7 +52,7 @@ public class Robot extends IterativeRobot {
     	}
     	else if(OI.dialThree.get()){
     		System.out.println("Started Autonomous Three");
-    		Turn turnaround = new Turn(90);
+    		Turn turnaround = new Turn(-180);
     		turnaround.start();
     	}
     	else if(OI.dialFour.get()){
@@ -98,6 +101,16 @@ public class Robot extends IterativeRobot {
 	    		print = 0;
 	    	}
 	    	print++; 
+	    	
+	    	if(OI.pistonIn.get()){
+	    		pistonValue = DoubleSolenoid.Value.kForward;
+	    	}
+	    	if(OI.pistonOut.get()){
+	    		pistonValue = DoubleSolenoid.Value.kReverse;
+	    	}
+	    	RobotMap.piston.set(pistonValue);
+	    	
+	    	
 	    	
 	    	Timer.delay(0.005);
 	    }  

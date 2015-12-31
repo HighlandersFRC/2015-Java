@@ -8,7 +8,12 @@ public class TestSequence extends CommandGroup {
 	
 	public TestSequence(){
 		addSequential(new DriveForward(20));
-		addSequential(new DriveForward(-20));
+		addSequential(new Wait(1));
+		addSequential(new Turn(-180));
+		addSequential(new Wait(1));
+		addSequential(new DriveForward(20));
+		
+		
 		
 		
 		

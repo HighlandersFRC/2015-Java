@@ -14,10 +14,12 @@ public class OI {
 	// mapping of buttons for first Controller
 	public static Joystick controllerOne = new Joystick(0);
 	public static JoystickButton safetyOff = new JoystickButton(controllerOne,7);
-	public static JoystickButton safetyOn = new JoystickButton(controllerOne,2);
+	public static JoystickButton safetyOn = new JoystickButton(controllerOne,3);
 	public static JoystickButton safetyOffTwo = new JoystickButton(controllerOne,8);
 	public static JoystickButton shiftUp = new JoystickButton(controllerOne, 6);
 	public static JoystickButton shiftDown = new JoystickButton(controllerOne,5);
+	public static JoystickButton pistonIn = new JoystickButton(controllerOne,2);
+	public static JoystickButton pistonOut = new JoystickButton(controllerOne,4);
 	
 	
 	// mapping of buttons for autonomous chooser

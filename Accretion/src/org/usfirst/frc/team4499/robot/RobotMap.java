@@ -5,6 +5,7 @@ import org.usfirst.frc.team4499.robot.tools.DCMotor;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -19,6 +20,8 @@ public class RobotMap {
     //Solenoid for shifters
     public static DoubleSolenoid shifters = new DoubleSolenoid(0,1);
     public static DoubleSolenoid piston = new DoubleSolenoid(2,3);
+    
+    public static I2C lidar = new I2C(Port.kOnboard, 0x62);
     
     //Drive Motors
 	public static DCMotor motorLeftOne = new DCMotor(1);

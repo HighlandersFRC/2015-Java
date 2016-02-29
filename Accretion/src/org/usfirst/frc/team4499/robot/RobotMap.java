@@ -23,6 +23,8 @@ public class RobotMap {
     
     public static I2C lidar = new I2C(Port.kOnboard, 0x62);
     
+   // public static SerialPort tegra = new SerialPort(SerialPort.Port.kUSB);
+    
     //Drive Motors
 	public static DCMotor motorLeftOne = new DCMotor(1);
 	public static DCMotor motorLeftTwo = new DCMotor(2);

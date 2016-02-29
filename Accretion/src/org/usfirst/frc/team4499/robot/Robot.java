@@ -17,7 +17,7 @@ public class Robot extends IterativeRobot {
 	Camera camera;
 	Value pistonValue;
 	int print = 0; 
-	Lidar distance;
+	//Lidar distance;
 	
 	
 	
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
         cameraMount = new Gimbal();
         camera = new Camera(50, "cam0");
         pistonValue = DoubleSolenoid.Value.kOff;
-        distance = new Lidar(I2C.Port.kMXP);
+      //  distance = new Lidar(I2C.Port.kMXP);
     }
     
     /**
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
-    	SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
+    //	SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
     }
     
     /**
@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
     	Arduino.write(1);
     	drive.start();
     	cameraMount.start();
-    	distance.start();
+    	//distance.start();
     	
     	
     	
@@ -100,11 +100,11 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
 	    while (isOperatorControl() && isEnabled()) {
-	    	distance.update();
-	    	System.out.println(distance.getDistance());
+	    	//distance.update();
+	    	//System.out.println(distance.getDistance());
 	    	Scheduler.getInstance().run();
 	    	Arduino.write(1);
-	    	SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
+	    	//SmartDashboard.putNumber("Orientation",RobotMap.navx.getAngle());
 	    	if(print > 100){
 	    		
 	    		print = 0;
@@ -119,8 +119,8 @@ public class Robot extends IterativeRobot {
 	    	}
 	    	RobotMap.piston.set(pistonValue);
 	    	
-	    	distance.update();
-	    	System.out.println(distance.getDistance());
+	    	//distance.update();
+	    	//System.out.println(distance.getDistance());
 	    	
 	    	Timer.delay(0.005);
 	    }  
